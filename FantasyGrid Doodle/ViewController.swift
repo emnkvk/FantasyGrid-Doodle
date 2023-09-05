@@ -8,12 +8,12 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    let numViewPerRow = 15
+    var cells = [String:UIView]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-     
         
-        let numViewPerRow = 15
         let width = view.frame.width / CGFloat(numViewPerRow)
         
         
@@ -25,36 +25,44 @@ class ViewController: UIViewController {
                 cellView.layer.borderWidth = 0.5
                 cellView.layer.borderColor = UIColor.black.cgColor
                 view.addSubview(cellView)
+                let key = "\(i)|\(j)"
+                cells [key] = cellView
                 
             }
         }
-        view.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(handlePan)))
-    
-    }
-    
+        view.addGestureRecognizer(UIPanGestureRecognizer(target: self,
+                                                         action: #selector(handlePan)))
+        }
+        
     @objc func handlePan (gesture:UIGestureRecognizer){
-        let location = gesture.location(in: view)
+            let location = gesture.location(in: view)
         
+        let width = view.frame.width / CGFloat(numViewPerRow)
+        let i = Int(location.x / width)
+        let j = Int(location.y / width)
+        let key = "\(i)|\(j)"
+        let cellView = cells[key]
         
-        for subView in view.subviews{
-            
-            if subView.frame.contains(location){
-                subView.backgroundColor = .black
+        cellView?.backgroundColor = .white
+        
+           /* var loopCount = 0
+            for subView in view.subviews{
+                if subView.frame.contains(location){
+                    subView.backgroundColor = .black
+                    
+                }
+                loopCount += 1 */
                 
             }
-                
-                
+            
         }
-     
+        
     }
-    
     fileprivate func randomColor() -> UIColor{
         let red = CGFloat(drand48())
         let green = CGFloat(drand48())
         let blue = CGFloat(drand48())
         return UIColor(red: red, green: green, blue: blue, alpha: 1)
     }
-
-
-}
+    
 
