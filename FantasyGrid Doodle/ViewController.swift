@@ -40,6 +40,7 @@ class ViewController: UIViewController {
             
             if subView.frame.contains(location){
                 subView.backgroundColor = .black
+                
             }
                 
                 
