@@ -57,7 +57,7 @@ class ViewController: UIViewController {
             
         }
         
-    }
+    
     fileprivate func randomColor() -> UIColor{
         let red = CGFloat(drand48())
         let green = CGFloat(drand48())
